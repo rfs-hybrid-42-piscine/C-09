@@ -28,9 +28,10 @@ Instead of typing out massive `cc` commands every time you want to test your cod
 
 ### 🔹 Libraries & Build Automation
 
+
 | Exercise | Concept & Logic |
 | :--- | :--- |
-| **[`ex00: libft_creator.sh`](ex00)** | **Static Libraries:** Creating a library archive (`libft.a`) using a shell script. <br><br>**Logic:** A static library is essentially a zip file of compiled object (`.o`) files. The script must first compile the requested `.c` files (`ft_putchar.c`, `ft_swap.c`, `ft_putstr.c`, `ft_strlen.c`, `ft_strcmp.c`) into `.o` files using `cc -c`. Then, it uses the `ar rc` command to bundle them into `libft.a`, followed by `ranlib` to index the archive. Finally, it cleans up by removing the leftover `.o` files. |
+| **[`ex00: libft_creator.sh`](ex00)** | **Static Libraries:** Creating a library archive (`libft.a`) using a shell script. <br><br>**Logic:** A static library is essentially a zip file of compiled object (`.o`) files. The script must first compile the requested `.c` files (`ft_putchar.c`, `ft_swap.c`, `ft_putstr.c`, `ft_strlen.c`, `ft_strcmp.c`) into `.o` files using `cc -c`. Then, it uses the `ar rcs` command to bundle them into `libft.a` and automatically index the archive (via the `s` flag). Finally, it cleans up by using `rm -f` to forcibly remove the leftover `.o` files. |
 | **[`ex01: Makefile`](ex01)** | **Makefiles:** Automating the compilation process to build `libft.a` dynamically from a specific folder structure. <br><br>**Logic:** A `Makefile` consists of rules and dependencies. We use variables (like `SRCS`, `OBJS`, `CC`, `CFLAGS`) to keep the file clean. We define an `all` rule that points to `libft.a`. The compiler must fetch `.c` files from a `srcs/` directory and map them to `.o` files, using the header `ft.h` located in the `includes/` directory. We also build utility rules: `clean` (removes `.o` files), `fclean` (removes `.o` files AND the `.a` library), and `re` (runs `fclean` then `all`). |
 
 ### 🔢 Advanced String Manipulation
@@ -61,9 +62,12 @@ Because **C 09** focuses heavily on compilation tools, testing it requires inter
    ```
 
 3. **Test Exercise 01 (Makefile):**
-   Navigate to the `ex01` directory and test your `make` rules one by one. Ensure it applies the `-Wall -Wextra -Werror` flags!
+   Because a Makefile is an automation script, it will fail if the files it expects do not exist! Before testing, simulate the project structure by copying the `.c` files from `ex00` and creating a dummy `ft.h` header.
    ```bash
    cd ex01
+   mkdir -p srcs includes
+   cp ../ex00/*.c srcs/
+   touch includes/ft.h
    make        # Builds libft.a
    make clean  # Removes .o files
    make fclean # Removes .o files and libft.a
@@ -71,7 +75,7 @@ Because **C 09** focuses heavily on compilation tools, testing it requires inter
    ```
 
 4. **Test Exercise 02 (ft_split):**
-   Use a custom `tester.c` containing a `main` function to compile and test your split logic.
+   Use a custom **[`tester.c`](tester.c)** containing a `main` function to compile and test your split logic.
    ```bash
    cc -Wall -Wextra -Werror tester.c ex02/ft_split.c -o test_split
    ./test_split
