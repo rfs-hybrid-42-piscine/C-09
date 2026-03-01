@@ -48,10 +48,20 @@ Instead of typing out massive `cc` commands every time you want to test your cod
 Because **C 09** focuses heavily on compilation tools, testing it requires interacting with Bash scripts and `make` commands.
 
 1. **Clone the repository:**
+   You can clone this module directly, or pull the entire 42 Piscine parent repository which includes this module as a submodule.
+
+   **Option A: Clone this module directly**
    ```bash
-   git clone <your_repository_link>
+   git clone git@github.com:rfs-hybrid-42-piscine/C-09.git C-09
+   cd C-09
+   ```
+
+   **Option B: Clone the parent repository (with submodules)**
+   ```bash
+   git clone --recurse-submodules git@github.com:rfs-hybrid/42-Piscine.git 42-Piscine
    cd 42-Piscine/C-09
    ```
+   *(Note: The `--recurse-submodules` flag ensures all nested module repositories are populated immediately.)*
 
 2. **Test Exercise 00 (libft_creator):**
    Run the shell script to verify it generates the library and cleans up the `.o` files.
